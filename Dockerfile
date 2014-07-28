@@ -17,6 +17,9 @@ RUN apt-get install nginx -y
 ADD config/nginx.conf /etc/nginx/nginx.conf
 ADD config/default /etc/nginx/sites-enabled/
 
+## Supervisor configuration
+ADD config/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
+
 ## Docker config
 EXPOSE 80
-CMD ["nginx"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
